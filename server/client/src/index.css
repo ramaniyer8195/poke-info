@@ -29,6 +29,25 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    --bug-type: #92bc2c;
+    --dark-type: #595761;
+    --dragon-type: #0c69c8;
+    --electric-type: #f2d94e;
+    --fairy-type: #ee90e6;
+    --fighting-type: #d3425f;
+    --fire-type: #fba54c;
+    --flying-type: #a1bbec;
+    --ghost-type: #5f6dbc;
+    --grass-type: #5fbd58;
+    --ground-type: #da7c4d;
+    --ice-type: #75d0c1;
+    --normal-type: #a0a29f;
+    --poison-type: #b763cf;
+    --psychic-type: #fa8581;
+    --rock-type: #c9bb8a;
+    --steel-type: #5695a3;
+    --water-type: #539ddf;
   }
 
   .dark {
@@ -56,6 +75,25 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    --bug-type: #92bc2c;
+    --dark-type: #595761;
+    --dragon-type: #0c69c8;
+    --electric-type: #f2d94e;
+    --fairy-type: #ee90e6;
+    --fighting-type: #d3425f;
+    --fire-type: #fba54c;
+    --flying-type: #a1bbec;
+    --ghost-type: #5f6dbc;
+    --grass-type: #5fbd58;
+    --ground-type: #da7c4d;
+    --ice-type: #75d0c1;
+    --normal-type: #a0a29f;
+    --poison-type: #b763cf;
+    --psychic-type: #fa8581;
+    --rock-type: #c9bb8a;
+    --steel-type: #5695a3;
+    --water-type: #539ddf;
   }
 }
 
