@@ -15,20 +15,41 @@ import { TYPE_IMAGES } from "@/constants/pokeConstants";
 import PokeDetailsTab from "../home/PokeDetailsTab";
 import PokeTypingTab from "../home/PokeTypingTab";
 import PokeMovesTab from "../home/PokeMovesTab";
+import { ReactFlow, Background } from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
+import PokeNode from "../home/PokeNode";
+import PokeEdge from "../home/PokeEdge";
+import { PokeNode as PokeNodeType } from "@/interfaces/api";
 
 const PokeDetailsModal = ({
   isOpen,
   onOpenChange,
   pokemon,
+  handlePokemonChange,
 }: PokeDetailsModalProps) => {
   const [regularSprite, setRegularSprite] = useState(true);
   const [selectedSprite, setSelectedSprite] = useState<{
     regular: string;
     shiny: string;
   }>(pokemon.sprites[pokemon.name]);
+  const [showEvoGraph, setShowEvograph] = useState(false);
 
   const handleSpriteChange = (form: string) => {
     setSelectedSprite(pokemon.sprites[form]);
+  };
+
+  const onModalClose = (open: boolean) => {
+    setShowEvograph(false);
+    setSelectedSprite(pokemon.sprites[pokemon.name]);
+    setRegularSprite(true);
+    onOpenChange(open);
+  };
+
+  const handleNodeClick = (event: React.MouseEvent, node: PokeNodeType) => {
+    setShowEvograph(false);
+    setSelectedSprite(pokemon.sprites[pokemon.name]);
+    setRegularSprite(true);
+    handlePokemonChange(node.data.id);
   };
 
   return (
@@ -36,7 +57,7 @@ const PokeDetailsModal = ({
       modal
       open={isOpen}
       defaultOpen={isOpen}
-      onOpenChange={onOpenChange}
+      onOpenChange={onModalClose}
     >
       <DialogContent className="w-[65vw] h-[85vh]">
         <DialogHeader>
@@ -57,63 +78,85 @@ const PokeDetailsModal = ({
             </div>
           </DialogDescription>
         </DialogHeader>
-        <div className="flex gap-5">
-          <div className="flex flex-col gap-5 items-center justify-center w-[40%]">
-            <div>
-              <Button
-                variant={regularSprite ? "default" : "secondary"}
-                onClick={() => setRegularSprite(true)}
-                className="rounded-tr-none rounded-br-none"
-              >
-                Regular
-              </Button>
-              <Button
-                variant={!regularSprite ? "default" : "secondary"}
-                onClick={() => setRegularSprite(false)}
-                className="rounded-tl-none rounded-bl-none"
-              >
-                Shiny
-              </Button>
-            </div>
-            <div className="w-full flex items-center justify-center">
-              <img
-                src={
-                  regularSprite ? selectedSprite.regular : selectedSprite.shiny
-                }
-                alt={pokemon.name}
-              />
-            </div>
+        {showEvoGraph ? (
+          <div className="w-full h-[59vh]">
+            <ReactFlow
+              nodes={pokemon.evolutionChain.nodes}
+              nodeTypes={{ pokemon: PokeNode }}
+              edges={pokemon.evolutionChain.edges}
+              edgeTypes={{ pokemon: PokeEdge }}
+              fitView
+              nodesConnectable={false}
+              nodesDraggable={false}
+              onNodeClick={handleNodeClick}
+            >
+              <Background />
+            </ReactFlow>
           </div>
-          <div className="w-[60%]">
-            <Tabs defaultValue="details">
-              <TabsList className="w-full h-9 p-0">
-                <TabsTrigger className="w-full h-full" value="details">
-                  Details
-                </TabsTrigger>
-                <TabsTrigger className="w-full h-full" value="typing">
-                  Typing
-                </TabsTrigger>
-                <TabsTrigger className="w-full h-full" value="moves">
-                  Moves
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="details">
-                <PokeDetailsTab
-                  pokemon={pokemon}
-                  handleSpriteChange={handleSpriteChange}
+        ) : (
+          <div className="flex gap-5">
+            <div className="flex flex-col gap-5 items-center justify-center w-[40%]">
+              <div>
+                <Button
+                  variant={regularSprite ? "default" : "secondary"}
+                  onClick={() => setRegularSprite(true)}
+                  className="rounded-tr-none rounded-br-none"
+                >
+                  Regular
+                </Button>
+                <Button
+                  variant={!regularSprite ? "default" : "secondary"}
+                  onClick={() => setRegularSprite(false)}
+                  className="rounded-tl-none rounded-bl-none"
+                >
+                  Shiny
+                </Button>
+              </div>
+              <div className="w-full flex items-center justify-center">
+                <img
+                  src={
+                    regularSprite
+                      ? selectedSprite.regular
+                      : selectedSprite.shiny
+                  }
+                  alt={pokemon.name}
                 />
-              </TabsContent>
-              <TabsContent value="typing">
-                <PokeTypingTab pokemon={pokemon} />
-              </TabsContent>
-              <TabsContent value="moves">
-                <PokeMovesTab pokemon={pokemon} />
-              </TabsContent>
-            </Tabs>
+              </div>
+            </div>
+            <div className="w-[60%]">
+              <Tabs defaultValue="details">
+                <TabsList className="w-full h-9 p-0">
+                  <TabsTrigger className="w-full h-full" value="details">
+                    Details
+                  </TabsTrigger>
+                  <TabsTrigger className="w-full h-full" value="typing">
+                    Typing
+                  </TabsTrigger>
+                  <TabsTrigger className="w-full h-full" value="moves">
+                    Moves
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="details">
+                  <PokeDetailsTab
+                    pokemon={pokemon}
+                    handleSpriteChange={handleSpriteChange}
+                  />
+                </TabsContent>
+                <TabsContent value="typing">
+                  <PokeTypingTab pokemon={pokemon} />
+                </TabsContent>
+                <TabsContent value="moves">
+                  <PokeMovesTab pokemon={pokemon} />
+                </TabsContent>
+              </Tabs>
+            </div>
           </div>
-        </div>
+        )}
+
         <DialogFooter className="flex items-center sm:justify-center w-full">
-          <Button>Show Evolution Graph</Button>
+          <Button onClick={() => setShowEvograph(!showEvoGraph)}>{`${
+            showEvoGraph ? "Hide" : "Show"
+          } Evolution Graph`}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

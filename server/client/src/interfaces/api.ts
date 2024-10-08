@@ -1,3 +1,4 @@
+import { Node } from "@xyflow/react";
 import { CSSProperties } from "react";
 
 export interface Ability {
@@ -24,6 +25,28 @@ export interface Move {
   power: number;
   priority: number;
   type: string;
+}
+
+export interface PokeNode extends Node {
+  id: string;
+  type: string;
+  data: {
+    name: string;
+    id: number;
+    types: string[];
+    sprite: string;
+    nodeLevel: 0 | 1 | 2;
+  };
+  position: { x: number; y: number };
+}
+
+export interface PokeEdge {
+  id: string;
+  type: string;
+  source: string;
+  target: string;
+  data: { label: string };
+  style: CSSProperties;
 }
 
 export interface Pokemon {
@@ -59,22 +82,7 @@ export interface Pokemon {
     [key: string]: { regular: string; shiny: string };
   };
   evolutionChain: {
-    nodes: {
-      id: string;
-      data: { name: string; id: number; types: string[]; sprite: string };
-      position: { x: number; y: number };
-      selectable: false;
-      draggable: false;
-      deletable: false;
-    }[];
-    edges: {
-      id: string;
-      source: string;
-      target: string;
-      data: { label: string };
-      style: CSSProperties;
-      selectable: false;
-      deletable: false;
-    }[];
+    nodes: PokeNode[];
+    edges: PokeEdge[];
   };
 }

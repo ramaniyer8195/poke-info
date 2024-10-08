@@ -12,3 +12,9 @@ export interface TabProps {
 export interface PokeDetailsTabProps extends TabProps {
   handleSpriteChange: (form: string) => void;
 }
+
+export interface PokeEdgeLabelProps {
+  labelX: number;
+  labelY: number;
+  label: string;
+}

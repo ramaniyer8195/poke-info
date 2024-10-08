@@ -7,6 +7,7 @@ export interface ModalProps {
 
 export interface PokeDetailsModalProps extends ModalProps {
   pokemon: Pokemon;
+  handlePokemonChange: (pokemonId: number) => void;
 }
 
 export interface AbilityDetailsModalProps extends ModalProps {

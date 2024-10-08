@@ -15,8 +15,18 @@ const PokeGrid = () => {
   };
 
   const handleModalChange = (pokemon: Pokemon) => {
-    setIsOpen(!isOpen);
     setSelectedPokemon(pokemon);
+    setIsOpen(true);
+  };
+
+  const handlePokemonChange = (pokemonId: number) => {
+    const selectedPokemon = POKEMON_DATA.find(
+      (pokemon) => pokemon.pokemonId === pokemonId
+    );
+    if (selectedPokemon) {
+      setIsOpen(false);
+      handleModalChange(selectedPokemon);
+    }
   };
 
   return (
@@ -36,6 +46,7 @@ const PokeGrid = () => {
         isOpen={isOpen}
         onOpenChange={handleOpenChange}
         pokemon={selectedPokemon}
+        handlePokemonChange={handlePokemonChange}
       />
     </>
   );
