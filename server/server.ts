@@ -5,7 +5,7 @@ import cors from "cors";
 import path from "path";
 import pokemonRouter from "./routes/pokemonRoutes";
 
-const port = 5000 || process.env.PORT;
+const port = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors({ origin: "*", credentials: true, optionsSuccessStatus: 200 }));
