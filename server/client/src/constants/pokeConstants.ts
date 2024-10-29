@@ -263,3 +263,246 @@ export const DEFAULT_POKEMON: Pokemon = {
     edges: [],
   },
 };
+
+export const TYPE_MATCHUPS: {
+  [key: string]: {
+    attack: { [key: string]: string[] };
+    defense: { [key: string]: string[] };
+  };
+} = {
+  normal: {
+    attack: {
+      "0x": ["ghost"],
+      "0.5x": ["rock", "steel"],
+      "2x": [],
+    },
+    defense: {
+      "0x": ["ghost"],
+      "0.5x": [],
+      "2x": ["fighting"],
+    },
+  },
+  fire: {
+    attack: {
+      "0x": [],
+      "0.5x": ["fire", "water", "rock", "dragon"],
+      "2x": ["grass", "ice", "bug", "steel"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["fire", "grass", "ice", "bug", "steel", "fairy"],
+      "2x": ["water", "ground", "rock"],
+    },
+  },
+  water: {
+    attack: {
+      "0x": [],
+      "0.5x": ["water", "grass", "dragon"],
+      "2x": ["fire", "ground", "rock"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["fire", "water", "ice", "steel"],
+      "2x": ["electric", "grass"],
+    },
+  },
+  grass: {
+    attack: {
+      "0x": [],
+      "0.5x": ["fire", "grass", "poison", "flying", "bug", "dragon", "steel"],
+      "2x": ["water", "ground", "rock"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["water", "electric", "grass", "ground"],
+      "2x": ["fire", "ice", "poison", "flying", "bug"],
+    },
+  },
+  electric: {
+    attack: {
+      "0x": ["ground"],
+      "0.5x": ["electric", "grass", "dragon"],
+      "2x": ["water", "flying"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["electric", "flying", "steel"],
+      "2x": ["ground"],
+    },
+  },
+  ice: {
+    attack: {
+      "0x": [],
+      "0.5x": ["fire", "water", "ice", "steel"],
+      "2x": ["grass", "ground", "flying", "dragon"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["ice"],
+      "2x": ["fire", "fighting", "rock", "steel"],
+    },
+  },
+  fighting: {
+    attack: {
+      "0x": ["ghost"],
+      "0.5x": ["poison", "flying", "psychic", "bug", "fairy"],
+      "2x": ["normal", "ice", "rock", "dark", "steel"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["bug", "rock", "dark"],
+      "2x": ["flying", "psychic", "fairy"],
+    },
+  },
+  poison: {
+    attack: {
+      "0x": ["steel"],
+      "0.5x": ["poison", "ground", "rock", "ghost"],
+      "2x": ["grass", "fairy"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["grass", "fighting", "poison", "bug", "fairy"],
+      "2x": ["ground", "psychic"],
+    },
+  },
+  ground: {
+    attack: {
+      "0x": ["flying"],
+      "0.5x": ["grass", "bug"],
+      "2x": ["fire", "electric", "poison", "rock", "steel"],
+    },
+    defense: {
+      "0x": ["electric"],
+      "0.5x": ["poison", "rock"],
+      "2x": ["water", "grass", "ice"],
+    },
+  },
+  flying: {
+    attack: {
+      "0x": [],
+      "0.5x": ["electric", "rock", "steel"],
+      "2x": ["grass", "fighting", "bug"],
+    },
+    defense: {
+      "0x": ["ground"],
+      "0.5x": ["grass", "fighting", "bug"],
+      "2x": ["electric", "ice", "rock"],
+    },
+  },
+  psychic: {
+    attack: {
+      "0x": ["dark"],
+      "0.5x": ["psychic", "steel"],
+      "2x": ["fighting", "poison"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["fighting", "psychic"],
+      "2x": ["bug", "ghost", "dark"],
+    },
+  },
+  bug: {
+    attack: {
+      "0x": [],
+      "0.5x": [
+        "fire",
+        "fighting",
+        "poison",
+        "flying",
+        "ghost",
+        "steel",
+        "fairy",
+      ],
+      "2x": ["grass", "psychic", "dark"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["grass", "fighting", "ground"],
+      "2x": ["fire", "flying", "rock"],
+    },
+  },
+  rock: {
+    attack: {
+      "0x": [],
+      "0.5x": ["fighting", "ground", "steel"],
+      "2x": ["fire", "ice", "flying", "bug"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["normal", "fire", "poison", "flying"],
+      "2x": ["water", "grass", "fighting", "ground", "steel"],
+    },
+  },
+  ghost: {
+    attack: {
+      "0x": ["normal"],
+      "0.5x": ["dark"],
+      "2x": ["psychic", "ghost"],
+    },
+    defense: {
+      "0x": ["normal", "fighting"],
+      "0.5x": ["poison", "bug"],
+      "2x": ["ghost", "dark"],
+    },
+  },
+  dragon: {
+    attack: {
+      "0x": ["fairy"],
+      "0.5x": ["steel"],
+      "2x": ["dragon"],
+    },
+    defense: {
+      "0x": [],
+      "0.5x": ["fire", "water", "electric", "grass"],
+      "2x": ["ice", "dragon", "fairy"],
+    },
+  },
+  dark: {
+    attack: {
+      "0x": [],
+      "0.5x": ["fighting", "dark", "fairy"],
+      "2x": ["psychic", "ghost"],
+    },
+    defense: {
+      "0x": ["psychic"],
+      "0.5x": ["ghost", "dark"],
+      "2x": ["fighting", "bug", "fairy"],
+    },
+  },
+  steel: {
+    attack: {
+      "0x": [],
+      "0.5x": ["fire", "water", "electric", "steel"],
+      "2x": ["ice", "rock", "fairy"],
+    },
+    defense: {
+      "0x": ["poison"],
+      "0.5x": [
+        "normal",
+        "grass",
+        "ice",
+        "flying",
+        "psychic",
+        "bug",
+        "rock",
+        "dragon",
+        "steel",
+        "fairy",
+      ],
+      "2x": ["fire", "fighting", "ground"],
+    },
+  },
+  fairy: {
+    attack: {
+      "0x": [],
+      "0.5x": ["fire", "poison", "steel"],
+      "2x": ["fighting", "dragon", "dark"],
+    },
+    defense: {
+      "0x": ["dragon"],
+      "0.5x": ["fighting", "bug", "dark"],
+      "2x": ["poison", "steel"],
+    },
+  },
+};
