@@ -1,4 +1,3 @@
-import { Node } from "@xyflow/react";
 import { CSSProperties } from "react";
 
 export interface Ability {
@@ -27,7 +26,7 @@ export interface Move {
   type: string;
 }
 
-export interface PokeNode extends Node {
+export interface PokeNode {
   id: string;
   type: string;
   data: {
@@ -35,7 +34,7 @@ export interface PokeNode extends Node {
     id: number;
     types: string[];
     sprite: string;
-    nodeLevel: 0 | 1 | 2;
+    nodeLevel: -1 | 0 | 1 | 2;
   };
   position: { x: number; y: number };
 }

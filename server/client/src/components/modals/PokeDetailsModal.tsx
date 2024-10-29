@@ -62,7 +62,7 @@ const PokeDetailsModal = ({
       <DialogContent className="w-[65vw] h-[85vh]">
         <DialogHeader>
           <DialogTitle className="flex gap-3 items-center justify-center">
-            <span className="uppercase text-center text-2xl flex gap-2">
+            <span className="uppercase text-center text-2xl flex gap-2 font-display">
               <span>#{pokemon.pokemonId}</span>
               <span>{pokemon.name}</span>
             </span>
@@ -90,7 +90,7 @@ const PokeDetailsModal = ({
               nodesDraggable={false}
               onNodeClick={handleNodeClick}
             >
-              <Background />
+              <Background color="hsl(var(--foreground))" size={1.5} />
             </ReactFlow>
           </div>
         ) : (

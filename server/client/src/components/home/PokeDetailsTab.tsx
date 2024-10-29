@@ -37,32 +37,34 @@ const PokeDetailsTab = ({
   return (
     <>
       <div className="flex flex-col gap-3">
-        <div className="text-center font-bold text-xl">Details</div>
+        <div className="text-center font-bold text-xl font-display">
+          Details
+        </div>
         <div className="w-full h-[1px] bg-primary"></div>
         <div className="grid grid-cols-2 gap-3">
           <div className="flex gap-3">
-            <span className="font-bold">Id</span>
+            <span className="font-bold font-display">Id</span>
             <span>:</span>
             <span>#{pokemon.pokemonId}</span>
           </div>
           <div className="flex gap-3">
-            <span className="font-bold">Name</span>
+            <span className="font-bold font-display">Name</span>
             <span>:</span>
             <span className="capitalize">{pokemon.name}</span>
           </div>
           <div className="flex gap-3">
-            <span className="font-bold">Height</span>
+            <span className="font-bold font-display">Height</span>
             <span>:</span>
             <span>{getHeightString(pokemon.height)}</span>
           </div>
           <div className="flex gap-3">
-            <span className="font-bold">Weight</span>
+            <span className="font-bold font-display">Weight</span>
             <span>:</span>
             <span>{getWeightString(pokemon.weight)}</span>
           </div>
         </div>
         <div className="flex gap-3">
-          <div className="font-bold">Abilities</div>
+          <div className="font-bold font-display">Abilities</div>
           <div>:</div>
           <div className="flex gap-2">
             {pokemon.abilities.map((ability) => {
@@ -79,7 +81,7 @@ const PokeDetailsTab = ({
         </div>
         {pokemon.heldItems.length > 0 && (
           <div className="flex gap-3">
-            <div className="font-bold">Held Items</div>
+            <div className="font-bold font-display">Held Items</div>
             <div>:</div>
             <div className="flex gap-2">
               {pokemon.heldItems.map((item) => {
@@ -96,7 +98,9 @@ const PokeDetailsTab = ({
           </div>
         )}
         <div className="flex gap-3">
-          <div className="font-bold min-w-fit">Encounter Areas</div>
+          <div className="font-bold font-display min-w-fit">
+            Encounter Areas
+          </div>
           <div>:</div>
           <div>
             {pokemon.areaEncounter
@@ -107,7 +111,7 @@ const PokeDetailsTab = ({
           </div>
         </div>
         <div className="flex gap-3">
-          <div className="font-bold">Forms</div>
+          <div className="font-bold font-display">Forms</div>
           <div>:</div>
           <div className="flex gap-2">
             {Object.keys(pokemon.sprites).map((form) => {
@@ -127,26 +131,28 @@ const PokeDetailsTab = ({
             })}
           </div>
         </div>
-        <div className="text-center font-bold text-xl">Training</div>
+        <div className="text-center font-bold font-display text-xl">
+          Training
+        </div>
         <div className="w-full h-[1px] bg-primary"></div>
         <div className="grid grid-cols-2">
           <div className="flex gap-3">
-            <span className="font-bold">Catch Rate</span>
+            <span className="font-bold font-display">Catch Rate</span>
             <span>:</span>
             <span>{pokemon.training.catchRate}</span>
           </div>
           <div className="flex gap-3">
-            <span className="font-bold">Base Happiness</span>
+            <span className="font-bold font-display">Base Happiness</span>
             <span>:</span>
             <span>{pokemon.training.baseHappiness}</span>
           </div>
           <div className="flex gap-3">
-            <span className="font-bold">Base Experience</span>
+            <span className="font-bold font-display">Base Experience</span>
             <span>:</span>
             <span>{pokemon.training.baseExperience}</span>
           </div>
           <div className="flex gap-3">
-            <span className="font-bold">Hatch Counter</span>
+            <span className="font-bold font-display">Hatch Counter</span>
             <span>:</span>
             <span>{pokemon.training.hatchCounter}</span>
           </div>

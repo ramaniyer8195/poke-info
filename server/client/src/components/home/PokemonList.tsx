@@ -47,7 +47,7 @@ const PokemonList = () => {
   return (
     <>
       <div className="flex gap-10">
-        <div className="w-[15%] flex flex-col gap-6">
+        <div className="w-[17%] flex flex-col gap-6">
           <div className="flex gap-2">
             <Input type="text" placeholder="Search..." />
             <Button className="text-lg p-2">
@@ -55,7 +55,7 @@ const PokemonList = () => {
             </Button>
           </div>
           <div>
-            <h1 className="text-2xl font-bold mb-2">Region</h1>
+            <h1 className="text-2xl font-bold mb-2 font-display">Region</h1>
             <div className="flex flex-wrap gap-1.5">
               {regions.map((region) => {
                 return (
@@ -74,7 +74,7 @@ const PokemonList = () => {
             </div>
           </div>
           <div>
-            <h1 className="text-2xl font-bold mb-2">Types</h1>
+            <h1 className="text-2xl font-bold mb-2 font-display">Types</h1>
             <div className="flex flex-wrap gap-1.5">
               {types.map((type) => {
                 return (
@@ -101,7 +101,7 @@ const PokemonList = () => {
             </div>
           </div>
         </div>
-        <div className="w-[85%] h-[87vh] overflow-auto">
+        <div className="w-[83%] h-[87vh] overflow-auto">
           <PokeGrid />
         </div>
       </div>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Josefin+Slab:ital,wght@0,100..700;1,100..700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -103,6 +105,9 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-body;
   }
 }
 

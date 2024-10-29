@@ -14,7 +14,7 @@ const PokeNode = ({ data }: NodeProps) => {
     id: number;
     types: string[];
     sprite: string;
-    nodeLevel: 0 | 1 | 2;
+    nodeLevel: -1 | 0 | 1 | 2;
   };
 
   return (
@@ -41,7 +41,9 @@ const PokeNode = ({ data }: NodeProps) => {
           </div>
         </CardContent>
         <CardFooter className="px-2">
-          <p className="uppercase text-xl text-center w-full">{name}</p>
+          <p className="uppercase text-xl text-center w-full font-display">
+            {name}
+          </p>
         </CardFooter>
       </Card>
       {(nodeLevel === 0 || nodeLevel === 1) && (

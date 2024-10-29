@@ -32,7 +32,9 @@ const PokeCard = ({ pokemon, handleModalChange }: PokeCardProps) => {
         </div>
       </CardContent>
       <CardFooter className="px-2">
-        <p className="uppercase text-xl text-center w-full">{pokemon.name}</p>
+        <p className="uppercase text-xl text-center w-full font-display">
+          {pokemon.name}
+        </p>
       </CardFooter>
     </Card>
   );

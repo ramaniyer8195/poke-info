@@ -30,12 +30,22 @@ const PokeMovesTab = ({ pokemon }: TabProps) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[220px]">Name</TableHead>
-            <TableHead className="w-[70px]">Type</TableHead>
-            <TableHead className="w-[90px]">Power</TableHead>
-            <TableHead className="w-[70px]">PP</TableHead>
-            <TableHead className="w-[110px]">Accuracy</TableHead>
-            <TableHead>Priority</TableHead>
+            <TableHead className="w-[220px] font-bold font-display">
+              Name
+            </TableHead>
+            <TableHead className="w-[70px] font-bold font-display">
+              Type
+            </TableHead>
+            <TableHead className="w-[90px] font-bold font-display">
+              Power
+            </TableHead>
+            <TableHead className="w-[70px] font-bold font-display">
+              PP
+            </TableHead>
+            <TableHead className="w-[110px] font-bold font-display">
+              Accuracy
+            </TableHead>
+            <TableHead className="font-bold font-display">Priority</TableHead>
           </TableRow>
         </TableHeader>
       </Table>

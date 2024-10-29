@@ -98,6 +98,10 @@ export default {
         steel: "var(--steel-type)",
         water: "var(--water-type)",
       },
+      fontFamily: {
+        display: ["Caveat", "cursive"],
+        body: ["Josefin Slab", "serif"],
+      },
     },
   },
   safelist,
