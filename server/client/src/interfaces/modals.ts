@@ -21,3 +21,8 @@ export interface ItemDetailsModalProps extends ModalProps {
 export interface MoveDetailsModalProps extends ModalProps {
   move: Move | null;
 }
+
+export interface AreaEncounterModalProps extends ModalProps {
+  pokemonName: string;
+  areas: string[];
+}

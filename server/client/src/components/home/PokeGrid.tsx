@@ -1,26 +1,37 @@
-import { POKEMON_DATA } from "@/constants/data";
 import PokeDetailsModal from "../modals/PokeDetailsModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PokeCard from "./PokeCard";
-import { Pokemon } from "@/interfaces/api";
+import { PokemonData, Pokemon } from "@/interfaces/api";
+import { getPokemonDetails, getPokemons } from "@/utils/apiUtils";
+import { DEFAULT_POKEMON } from "@/constants/pokeConstants";
 
 const PokeGrid = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon>(
-    POKEMON_DATA[0]
-  );
+  const [pokemonList, setPokemonList] = useState<PokemonData[]>([]);
+  const [selectedPokemon, setSelectedPokemon] =
+    useState<Pokemon>(DEFAULT_POKEMON);
+
+  useEffect(() => {
+    const getPokemonsData = async () => {
+      const pokemonRes = await getPokemons();
+      setPokemonList(pokemonRes);
+    };
+
+    getPokemonsData();
+  }, []);
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
   };
 
-  const handleModalChange = (pokemon: Pokemon) => {
-    setSelectedPokemon(pokemon);
+  const handleModalChange = async (pokemon: PokemonData) => {
+    const pokemonDetails = await getPokemonDetails(pokemon.pokemonId);
+    setSelectedPokemon(pokemonDetails);
     setIsOpen(true);
   };
 
   const handlePokemonChange = (pokemonId: number) => {
-    const selectedPokemon = POKEMON_DATA.find(
+    const selectedPokemon = pokemonList.find(
       (pokemon) => pokemon.pokemonId === pokemonId
     );
     if (selectedPokemon) {
@@ -32,7 +43,7 @@ const PokeGrid = () => {
   return (
     <>
       <div className="grid grid-cols-5 gap-2 px-2">
-        {POKEMON_DATA.map((pokemon) => {
+        {pokemonList.map((pokemon) => {
           return (
             <PokeCard
               key={pokemon.pokemonId}

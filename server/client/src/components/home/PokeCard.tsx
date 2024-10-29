@@ -28,7 +28,7 @@ const PokeCard = ({ pokemon, handleModalChange }: PokeCardProps) => {
       </CardHeader>
       <CardContent className="px-2">
         <div className="flex items-center justify-center">
-          <img src={pokemon.sprites.pikachu.regular} />
+          <img src={pokemon.pokeImage} />
         </div>
       </CardContent>
       <CardFooter className="px-2">

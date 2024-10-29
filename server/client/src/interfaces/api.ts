@@ -85,3 +85,10 @@ export interface Pokemon {
     edges: PokeEdge[];
   };
 }
+
+export interface PokemonData {
+  name: string;
+  pokemonId: number;
+  types: string[];
+  pokeImage: string;
+}

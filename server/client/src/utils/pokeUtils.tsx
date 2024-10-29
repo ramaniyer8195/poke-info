@@ -38,3 +38,7 @@ export const getTypeChart = (
     },
   };
 };
+
+export const getFormNameFromPokemonName = (name: string): string => {
+  return name.toLowerCase().replace(" ", "-");
+};

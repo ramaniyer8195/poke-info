@@ -31,7 +31,11 @@ const PokeEdge = ({
     <>
       <BaseEdge id={id} path={edgePath} />
       <EdgeLabelRenderer>
-        <PokeEdgeLabel label={label} labelX={labelX} labelY={labelY} />
+        <PokeEdgeLabel
+          label={!label || label === "" ? "No Data Found" : label}
+          labelX={labelX}
+          labelY={labelY}
+        />
       </EdgeLabelRenderer>
     </>
   );

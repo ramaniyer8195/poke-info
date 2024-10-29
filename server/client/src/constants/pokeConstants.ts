@@ -36,6 +36,8 @@ import rock_white from "../assets/types/white-icons/rock.svg";
 import steel_white from "../assets/types/white-icons/steel.svg";
 import water_white from "../assets/types/white-icons/water.svg";
 
+import { Pokemon } from "@/interfaces/api";
+
 export const TYPE_IMAGES: { [key: string]: { image: string; key: number } } = {
   bug: {
     image: bug,
@@ -220,3 +222,44 @@ export const TYPES = [
   "steel",
   "water",
 ];
+
+export const DEFAULT_POKEMON: Pokemon = {
+  pokemonId: 0,
+  name: "default",
+  types: [],
+  height: 0,
+  weight: 0,
+  genera: "",
+  color: "",
+  isBaby: false,
+  isLegendary: false,
+  isMythical: false,
+  abilities: [],
+  heldItems: [],
+  areaEncounter: [],
+  training: {
+    catchRate: 0,
+    baseHappiness: 0,
+    baseExperience: 0,
+    hatchCounter: 0,
+  },
+  stats: {
+    hp: 0,
+    attack: 0,
+    defense: 0,
+    specialAttack: 0,
+    specialDefense: 0,
+    speed: 0,
+  },
+  moves: [],
+  sprites: {
+    default: {
+      regular: "",
+      shiny: "",
+    },
+  },
+  evolutionChain: {
+    nodes: [],
+    edges: [],
+  },
+};

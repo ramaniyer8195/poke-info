@@ -17,7 +17,7 @@ const MoveDetailsModal = ({
     >
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle className="flex items-center justify-center">
+          <DialogTitle className="flex items-center justify-center font-display text-2xl">
             {move.name} Details
           </DialogTitle>
         </DialogHeader>

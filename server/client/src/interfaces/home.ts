@@ -1,15 +1,15 @@
-import { Pokemon } from "./api";
+import { PokemonData, Pokemon } from "./api";
 
 export interface PokeCardProps {
-  pokemon: Pokemon;
-  handleModalChange: (pokemon: Pokemon) => void;
+  pokemon: PokemonData;
+  handleModalChange: (pokemon: PokemonData) => void;
 }
 
 export interface TabProps {
   pokemon: Pokemon;
 }
 
-export interface PokeDetailsTabProps extends TabProps {
+export interface PokeEncounterTabProps extends TabProps {
   handleSpriteChange: (form: string) => void;
 }
 

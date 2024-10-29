@@ -95,7 +95,7 @@ export const getPokemon: RequestHandler<
             sprite: pokeDetails.pokeImage,
             nodeLevel: node.data.nodeLevel,
           },
-          position: { x: 0, y: 0 },
+          position: node.position,
         });
       }
     }
@@ -122,7 +122,7 @@ export const getPokemon: RequestHandler<
     };
 
     res.status(200).json({ data: pokemonDetails, error: "" });
+  } else {
+    res.status(404).json({ data: null, error: "Pokemon not found" });
   }
-
-  res.status(404).json({ data: null, error: "Pokemon not found" });
 };

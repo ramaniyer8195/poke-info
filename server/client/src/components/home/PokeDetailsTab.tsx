@@ -1,4 +1,4 @@
-import { PokeDetailsTabProps } from "@/interfaces/home";
+import { TabProps } from "@/interfaces/home";
 import { getHeightString, getWeightString } from "@/utils/pokeUtils";
 import { Badge } from "../ui/badge";
 import { useState } from "react";
@@ -6,11 +6,7 @@ import { Ability, Item } from "@/interfaces/api";
 import AbilityDetailsModal from "../modals/AbilityDetailsModal";
 import ItemDetailsModal from "../modals/ItemDetailsModal";
 
-const PokeDetailsTab = ({
-  pokemon,
-  handleSpriteChange,
-}: PokeDetailsTabProps) => {
-  console.log(pokemon);
+const PokeDetailsTab = ({ pokemon }: TabProps) => {
   const [ability, setAbility] = useState<Ability | null>(null);
   const [item, setItem] = useState<Item | null>(null);
   const [isAbilityOpen, setIsAbilityOpen] = useState(false);
@@ -97,40 +93,6 @@ const PokeDetailsTab = ({
             </div>
           </div>
         )}
-        <div className="flex gap-3">
-          <div className="font-bold font-display min-w-fit">
-            Encounter Areas
-          </div>
-          <div>:</div>
-          <div>
-            {pokemon.areaEncounter
-              .reduce((acc, area) => {
-                return acc + area + ", ";
-              }, "")
-              .slice(0, -2)}
-          </div>
-        </div>
-        <div className="flex gap-3">
-          <div className="font-bold font-display">Forms</div>
-          <div>:</div>
-          <div className="flex gap-2">
-            {Object.keys(pokemon.sprites).map((form) => {
-              return (
-                <Badge
-                  onClick={() => handleSpriteChange(form)}
-                  className="cursor-pointer capitalize"
-                >
-                  {form === pokemon.name
-                    ? pokemon.name
-                    : form
-                        .split("-")
-                        .filter((formName) => formName !== pokemon.name)
-                        .join(" ")}
-                </Badge>
-              );
-            })}
-          </div>
-        </div>
         <div className="text-center font-bold font-display text-xl">
           Training
         </div>

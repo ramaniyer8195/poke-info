@@ -9,7 +9,7 @@ import {
 } from "../ui/dialog";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { TYPE_IMAGES } from "@/constants/pokeConstants";
 import PokeDetailsTab from "../home/PokeDetailsTab";
@@ -20,6 +20,8 @@ import "@xyflow/react/dist/style.css";
 import PokeNode from "../home/PokeNode";
 import PokeEdge from "../home/PokeEdge";
 import { PokeNode as PokeNodeType } from "@/interfaces/api";
+import PokeEncountersTab from "../home/PokeEncountersTab";
+import { getFormNameFromPokemonName } from "@/utils/pokeUtils";
 
 const PokeDetailsModal = ({
   isOpen,
@@ -31,8 +33,14 @@ const PokeDetailsModal = ({
   const [selectedSprite, setSelectedSprite] = useState<{
     regular: string;
     shiny: string;
-  }>(pokemon.sprites[pokemon.name]);
+  }>(pokemon.sprites[getFormNameFromPokemonName(pokemon.name)]);
   const [showEvoGraph, setShowEvograph] = useState(false);
+
+  useEffect(() => {
+    setSelectedSprite(
+      pokemon.sprites[getFormNameFromPokemonName(pokemon.name)]
+    );
+  }, [pokemon]);
 
   const handleSpriteChange = (form: string) => {
     setSelectedSprite(pokemon.sprites[form]);
@@ -40,14 +48,18 @@ const PokeDetailsModal = ({
 
   const onModalClose = (open: boolean) => {
     setShowEvograph(false);
-    setSelectedSprite(pokemon.sprites[pokemon.name]);
+    setSelectedSprite(
+      pokemon.sprites[getFormNameFromPokemonName(pokemon.name)]
+    );
     setRegularSprite(true);
     onOpenChange(open);
   };
 
   const handleNodeClick = (event: React.MouseEvent, node: PokeNodeType) => {
     setShowEvograph(false);
-    setSelectedSprite(pokemon.sprites[pokemon.name]);
+    setSelectedSprite(
+      pokemon.sprites[getFormNameFromPokemonName(pokemon.name)]
+    );
     setRegularSprite(true);
     handlePokemonChange(node.data.id);
   };
@@ -118,6 +130,8 @@ const PokeDetailsModal = ({
                     regularSprite
                       ? selectedSprite.regular
                       : selectedSprite.shiny
+                      ? selectedSprite.shiny
+                      : selectedSprite.regular
                   }
                   alt={pokemon.name}
                 />
@@ -135,18 +149,24 @@ const PokeDetailsModal = ({
                   <TabsTrigger className="w-full h-full" value="moves">
                     Moves
                   </TabsTrigger>
+                  <TabsTrigger className="w-full h-full" value="encounter">
+                    Encounter
+                  </TabsTrigger>
                 </TabsList>
                 <TabsContent value="details">
-                  <PokeDetailsTab
-                    pokemon={pokemon}
-                    handleSpriteChange={handleSpriteChange}
-                  />
+                  <PokeDetailsTab pokemon={pokemon} />
                 </TabsContent>
                 <TabsContent value="typing">
                   <PokeTypingTab pokemon={pokemon} />
                 </TabsContent>
                 <TabsContent value="moves">
                   <PokeMovesTab pokemon={pokemon} />
+                </TabsContent>
+                <TabsContent value="encounter">
+                  <PokeEncountersTab
+                    pokemon={pokemon}
+                    handleSpriteChange={handleSpriteChange}
+                  />
                 </TabsContent>
               </Tabs>
             </div>

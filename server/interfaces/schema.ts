@@ -65,6 +65,7 @@ export interface ILocation extends Document {
 }
 
 export interface ISpecies extends Document {
+  specimenId: number;
   height: number;
   weight: number;
   genera: string;

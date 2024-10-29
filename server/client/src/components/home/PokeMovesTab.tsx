@@ -64,10 +64,12 @@ const PokeMovesTab = ({ pokemon }: TabProps) => {
                 <TableCell className="w-[70px]">
                   <img src={TYPE_IMAGES[move.type].image} className="w-4" />
                 </TableCell>
-                <TableCell className="w-[90px]">{move.power}</TableCell>
-                <TableCell className="w-[70px]">{move.pp}</TableCell>
-                <TableCell className="w-[110px]">{move.accuracy}</TableCell>
-                <TableCell>{move.priority}</TableCell>
+                <TableCell className="w-[90px]">{move.power || "-"}</TableCell>
+                <TableCell className="w-[70px]">{move.pp || "-"}</TableCell>
+                <TableCell className="w-[110px]">
+                  {move.accuracy || "-"}
+                </TableCell>
+                <TableCell>{move.priority || "-"}</TableCell>
               </TableRow>
             ))}
           </TableBody>
