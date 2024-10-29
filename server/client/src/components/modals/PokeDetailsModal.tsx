@@ -55,6 +55,7 @@ const PokeDetailsModal = ({
     onOpenChange(open);
   };
 
+  // @ts-expect-error needed attribute
   const handleNodeClick = (event: React.MouseEvent, node: PokeNodeType) => {
     setShowEvograph(false);
     setSelectedSprite(

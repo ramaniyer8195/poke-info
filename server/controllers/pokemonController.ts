@@ -75,7 +75,6 @@ export const getPokemon: RequestHandler<
   const pokemonId = parseInt(req.params.pokemonId);
 
   const pokemonRes = await Pokemon.findOne({ pokemonId: { $eq: pokemonId } });
-  console.log(pokemonRes);
   if (!pokemonRes) {
     res.status(404).json({ data: null, error: "Pokemon not found" });
     return;

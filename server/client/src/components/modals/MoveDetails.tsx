@@ -15,13 +15,13 @@ const MoveDetailsModal = ({
       defaultOpen={isOpen}
       onOpenChange={onOpenChange}
     >
-      <DialogContent className="max-w-lg">
+      <DialogContent className="max-w-xl">
         <DialogHeader>
           <DialogTitle className="flex items-center justify-center font-display text-2xl">
             {move.name} Details
           </DialogTitle>
         </DialogHeader>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 max-h-[60vh] overflow-y-auto">
           <div className="flex gap-3">
             <span className="font-bold">Name</span>
             <span>:</span>
