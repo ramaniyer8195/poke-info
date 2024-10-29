@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import {
-  GetPokemonDetailsParams,
-  GetPokemonDetailsRes,
+  GetPokemonParams,
+  GetPokemonRes,
   GetPokemonsRes,
 } from "../interfaces/controllers";
 import Pokemon from "../models/Pokemon";
@@ -11,40 +11,45 @@ import Item from "../models/Item";
 import Location from "../models/Location";
 import Move from "../models/Move";
 import Species from "../models/Species";
-import { PokemonDetails, PokemonsData } from "../interfaces/frontendSchema";
+import {
+  PokemonDetailsData,
+  PokemonData,
+  PokeNode,
+} from "../interfaces/frontendSchema";
 
-export const getPokemonsData: RequestHandler<{}, GetPokemonsRes> = async (
+export const getPokemons: RequestHandler<{}, GetPokemonsRes> = async (
   req,
   res
 ) => {
   const pokemonRes = await Pokemon.find({});
 
-  const pokemonsData = pokemonRes.map((pokemon) => {
+  const pokemonsData: PokemonData[] = pokemonRes.map((pokemon) => {
     return {
       name: pokemon.name,
       pokemonId: pokemon.pokemonId,
       types: pokemon.types,
-      sprite: pokemon.sprite,
+      pokeImage: pokemon.pokeImage,
     };
   });
 
-  res.status(200).json({ data: { pokemons: pokemonsData } });
+  res.status(200).json({ data: pokemonsData });
 };
 
-export const getPokemonDetails: RequestHandler<
-  GetPokemonDetailsParams,
-  GetPokemonDetailsRes
+export const getPokemon: RequestHandler<
+  GetPokemonParams,
+  GetPokemonRes
 > = async (req, res) => {
   const pokemonId = parseInt(req.params.pokemonId);
 
-  const pokemonRes = await Pokemon.findOne({ pokemonId: pokemonId });
+  const pokemonRes = await Pokemon.findOne({ pokemonId: { $eq: pokemonId } });
+  console.log(pokemonRes);
   if (!pokemonRes) {
     res.status(404).json({ data: null, error: "Pokemon not found" });
     return;
   }
 
   const speciesId = pokemonRes.speciesId;
-  const evoId = pokemonRes.evolutionChain;
+  const evoId = pokemonRes.evoId;
   const moveIds = pokemonRes.moves;
   const itemIds = pokemonRes.heldItems;
   const locationIds = pokemonRes.areaEncounter;
@@ -54,16 +59,6 @@ export const getPokemonDetails: RequestHandler<
   const moveRes = await Move.find({ moveId: { $in: moveIds } });
   const itemRes = await Item.find({ itemId: { $in: itemIds } });
   const locationRes = await Location.find({ locationId: { $in: locationIds } });
-  console.log(
-    JSON.stringify({
-      speciesRes,
-      evoRes,
-      moveRes,
-      itemRes,
-      locationRes,
-      pokemonRes,
-    })
-  );
   const abilityRes = [];
 
   for (const ability of pokemonRes.abilities) {
@@ -76,13 +71,36 @@ export const getPokemonDetails: RequestHandler<
 
     abilityRes.push({
       name: abilityDbRes.name,
-      isHidden: ability.isHidden,
+      hidden: ability.hidden,
       desc: abilityDbRes.desc,
+      abilityId: ability.abilityId,
     });
   }
 
   if (speciesRes && evoRes) {
-    const pokemonDetails: PokemonDetails = {
+    const pokeNodes: PokeNode[] = [];
+    for (const node of evoRes.nodes) {
+      const pokeDetails = await Pokemon.findOne({
+        pokemonId: node.data.pokemonId,
+      });
+
+      if (pokeDetails) {
+        pokeNodes.push({
+          id: node.id,
+          type: node.type,
+          data: {
+            id: pokeDetails.pokemonId,
+            name: pokeDetails.name,
+            types: pokeDetails.types,
+            sprite: pokeDetails.pokeImage,
+            nodeLevel: node.data.nodeLevel,
+          },
+          position: { x: 0, y: 0 },
+        });
+      }
+    }
+
+    const pokemonDetails: PokemonDetailsData = {
       pokemonId: pokemonRes.pokemonId,
       name: pokemonRes.name,
       types: pokemonRes.types,
@@ -94,19 +112,13 @@ export const getPokemonDetails: RequestHandler<
       isLegendary: speciesRes.isLegendary,
       isMythical: speciesRes.isMythical,
       training: speciesRes.training,
-      formSprites: Array.from(speciesRes.formSprites).reduce(
-        (acc, [key, value]) => {
-          acc[key] = value;
-          return acc;
-        },
-        {} as { [key: string]: { regular: string; shiny: string } }
-      ),
+      sprites: speciesRes.sprites,
       stats: speciesRes.stats,
       abilities: abilityRes,
       heldItems: itemRes,
       areaEncounter: locationRes.map((location) => location.name),
       moves: moveRes,
-      evolutionChain: evoRes,
+      evolutionChain: { nodes: pokeNodes, edges: evoRes.edges },
     };
 
     res.status(200).json({ data: pokemonDetails, error: "" });

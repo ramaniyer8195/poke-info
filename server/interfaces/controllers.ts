@@ -1,14 +1,14 @@
-import { PokemonDetails, PokemonsData } from "./frontendSchema";
+import { PokemonData, PokemonDetailsData } from "./frontendSchema";
 
 export interface GetPokemonsRes {
-  data: PokemonsData;
+  data: PokemonData[];
 }
 
-export interface GetPokemonDetailsRes {
-  data: PokemonDetails | null;
+export interface GetPokemonRes {
+  data: PokemonDetailsData | null;
   error: string;
 }
 
-export interface GetPokemonDetailsParams {
+export interface GetPokemonParams {
   pokemonId: string;
 }

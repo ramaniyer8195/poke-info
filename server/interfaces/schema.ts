@@ -1,54 +1,19 @@
-export interface IAbility {
-  desc: string;
-  name: string;
-  abilityId: number;
-}
+import { Document } from "mongoose";
 
-export interface IEvo {
+export interface IPokemon extends Document {
+  name: string;
+  pokemonId: number;
+  types: string[];
+  pokeImage: string;
+  speciesId: number;
   evoId: number;
-  nodes: {
-    id: string;
-    type: string;
-    data: {
-      name: string;
-      id: number;
-      types: string[];
-      sprite: string;
-      nodeLevel: 0 | 1 | 2;
-    };
-    position: {
-      x: number;
-      y: number;
-    };
-  }[];
-  edges: {
-    id: string;
-    type: string;
-    source: string;
-    target: string;
-    data: {
-      label: string;
-    };
-    style: {
-      stroke: string;
-    };
-  };
+  moves: number[];
+  abilities: { abilityId: number; hidden: boolean }[];
+  heldItems: number[];
+  areaEncounter: number[];
 }
 
-export interface IItem {
-  name: string;
-  desc: string;
-  cost: number;
-  sprite: string;
-  itemId: number;
-}
-
-export interface ILocation {
-  name: string;
-  locationId: number;
-}
-
-export interface IMove {
+export interface IMove extends Document {
   name: string;
   desc: string;
   moveId: number;
@@ -59,28 +24,51 @@ export interface IMove {
   type: string;
 }
 
-export interface IPokemon {
-  pokemonId: number;
+export interface IAbility extends Document {
   name: string;
-  types: string[];
-  sprite: string;
-  speciesId: number;
-  abilities: {
-    abilityId: number;
-    isHidden: boolean;
-  }[];
-  heldItems: number[];
-  areaEncounter: number[];
-  moves: number[];
-  evolutionChain: number;
+  desc: string;
+  abilityId: number;
 }
 
-export interface ISpecies {
-  specimenId: number;
-  color: string;
+export interface IEvo extends Document {
+  evoId: number;
+  nodes: {
+    id: string;
+    type: string;
+    data: {
+      pokemonId: number;
+      nodeLevel: -1 | 0 | 1 | 2;
+    };
+    position: { x: number; y: number };
+  }[];
+  edges: {
+    id: string;
+    type: string;
+    source: string;
+    target: string;
+    data: { label: string };
+    style: { [key: string]: string };
+  }[];
+}
+
+export interface IItem extends Document {
+  name: string;
+  desc: string;
+  cost: number;
+  sprite: string;
+  itemId: number;
+}
+
+export interface ILocation extends Document {
+  name: string;
+  locationId: number;
+}
+
+export interface ISpecies extends Document {
   height: number;
   weight: number;
   genera: string;
+  color: string;
   isBaby: boolean;
   isLegendary: boolean;
   isMythical: boolean;
@@ -90,7 +78,6 @@ export interface ISpecies {
     baseExperience: number;
     hatchCounter: number;
   };
-  formSprites: Map<string, { regular: string; shiny: string }>;
   stats: {
     hp: number;
     attack: number;
@@ -99,4 +86,5 @@ export interface ISpecies {
     specialDefense: number;
     speed: number;
   };
+  sprites: { [key: string]: { regular: string; shiny: string } };
 }

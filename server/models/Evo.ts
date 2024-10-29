@@ -4,32 +4,29 @@ import { IEvo } from "../interfaces/schema";
 const Schema = mongoose.Schema;
 
 const EvoSchema = new Schema<IEvo>({
-  evoId: { type: Number },
+  evoId: { type: Number, required: true },
   nodes: [
     {
-      id: String,
-      type: String,
+      id: { type: String, required: true },
+      type: { type: String, required: true },
       data: {
-        name: String,
-        id: Number,
-        types: String,
-        sprite: String,
-        nodeLevel: 0 | 1 | 2,
+        pokemonId: { type: Number, required: true },
+        nodeLevel: { type: Number, required: true },
       },
       position: {
-        x: Number,
-        y: Number,
+        x: { type: Number, required: true },
+        y: { type: Number, required: true },
       },
     },
   ],
   edges: [
     {
-      id: String,
-      type: String,
-      source: String,
-      target: String,
-      data: { label: String },
-      style: { stroke: String },
+      id: { type: String, required: true },
+      type: { type: String, required: true },
+      source: { type: String, required: true },
+      target: { type: String, required: true },
+      data: { label: { type: String, required: true } },
+      style: { type: Object, required: true },
     },
   ],
 });

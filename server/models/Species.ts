@@ -1,37 +1,36 @@
-import mongoose, { Types } from "mongoose";
+import mongoose, { SchemaTypes } from "mongoose";
 import { ISpecies } from "../interfaces/schema";
 
 const Schema = mongoose.Schema;
 
 const SpeciesSchema = new Schema<ISpecies>({
-  specimenId: { type: Number },
-  color: { type: String },
-  height: { type: Number },
-  weight: { type: Number },
-  genera: { type: String },
-  isBaby: { type: Boolean },
-  isLegendary: { type: Boolean },
-  isMythical: { type: Boolean },
+  height: { type: Number, required: true },
+  weight: { type: Number, required: true },
+  color: { type: String, required: true },
+  isBaby: { type: Boolean, required: true },
+  isLegendary: { type: Boolean, required: true },
+  isMythical: { type: Boolean, required: true },
   training: {
-    catchRate: { type: Number },
-    baseHappiness: { type: Number },
-    baseExperience: { type: Number },
-    hatchCounter: { type: Number },
+    catchRate: { type: Number, required: true },
+    baseHappiness: { type: Number, required: true },
+    baseExperience: { type: Number, required: true },
+    hatchCounter: { type: Number, required: true },
   },
-  formSprites: {
-    type: mongoose.Schema.Types.Mixed,
+  stats: {
+    hp: { type: Number, required: true },
+    attack: { type: Number, required: true },
+    defense: { type: Number, required: true },
+    speed: { type: Number, required: true },
+    specialAttack: { type: Number, required: true },
+    specialDefense: { type: Number, required: true },
+  },
+  sprites: {
+    type: SchemaTypes.Mixed,
     of: {
       regular: { type: String },
       shiny: { type: String },
     },
-  },
-  stats: {
-    hp: { type: Number },
-    attack: { type: Number },
-    defense: { type: Number },
-    specialAttack: { type: Number },
-    specialDefense: { type: Number },
-    speed: { type: Number },
+    required: true,
   },
 });
 

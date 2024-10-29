@@ -4,14 +4,14 @@ import { IMove } from "../interfaces/schema";
 const Schema = mongoose.Schema;
 
 const MoveSchema = new Schema<IMove>({
-  name: { type: String },
-  desc: { type: String },
-  moveId: { type: Number },
-  accuracy: { type: Number },
-  pp: { type: Number },
-  power: { type: Number },
-  priority: { type: Number },
-  type: { type: String },
+  name: { type: String, required: true },
+  desc: { type: String, required: true },
+  moveId: { type: Number, required: true },
+  accuracy: { type: Number, required: true },
+  pp: { type: Number, required: true },
+  power: { type: Number, required: true },
+  priority: { type: Number, required: true },
+  type: { type: String, required: true },
 });
 
 export default mongoose.model<IMove>("Move", MoveSchema);
