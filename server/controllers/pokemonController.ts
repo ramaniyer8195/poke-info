@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import {
   GetPokemonParams,
+  GetPokemonQueryParams,
   GetPokemonRes,
   GetPokemonsRes,
 } from "../interfaces/controllers";
@@ -16,11 +17,20 @@ import {
   PokemonData,
   PokeNode,
 } from "../interfaces/frontendSchema";
+import { isPokemonInRegion } from "../utils/pokeUtils";
 
-export const getPokemons: RequestHandler<{}, GetPokemonsRes> = async (
-  req,
-  res
-) => {
+export const getPokemons: RequestHandler<
+  {},
+  GetPokemonsRes,
+  {},
+  GetPokemonQueryParams
+> = async (req, res) => {
+  const filter = {
+    types: req.query.types ? req.query.types.split(",") : [],
+    regions: req.query.regions ? req.query.regions.split(",") : [],
+    search: req.query.search ? req.query.search : "",
+  };
+
   const pokemonRes = await Pokemon.find({});
 
   const pokemonsData: PokemonData[] = pokemonRes.map((pokemon) => {
@@ -32,7 +42,30 @@ export const getPokemons: RequestHandler<{}, GetPokemonsRes> = async (
     };
   });
 
-  res.status(200).json({ data: pokemonsData });
+  const filteredData = pokemonsData
+    .filter((pokemon) => {
+      if (filter.search !== "") {
+        return pokemon.name.toLowerCase().includes(filter.search.toLowerCase());
+      }
+
+      return true;
+    })
+    .filter((pokemon) => {
+      if (filter.types.length > 0) {
+        return pokemon.types.some((type) => filter.types.includes(type));
+      }
+
+      return true;
+    })
+    .filter((pokemon) => {
+      if (filter.regions.length > 0) {
+        return isPokemonInRegion(pokemon.pokemonId, filter.regions);
+      }
+
+      return true;
+    });
+
+  res.status(200).json({ data: filteredData });
 };
 
 export const getPokemon: RequestHandler<

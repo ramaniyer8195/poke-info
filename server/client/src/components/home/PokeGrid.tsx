@@ -1,24 +1,16 @@
 import PokeDetailsModal from "../modals/PokeDetailsModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PokeCard from "./PokeCard";
 import { PokemonData, Pokemon } from "@/interfaces/api";
-import { getPokemonDetails, getPokemons } from "@/utils/apiUtils";
+import { getPokemonDetails } from "@/utils/apiUtils";
 import { DEFAULT_POKEMON } from "@/constants/pokeConstants";
+import { PokeGridProps } from "@/interfaces/home";
+import noResults from "../../assets/no-results.png";
 
-const PokeGrid = () => {
+const PokeGrid = ({ pokemonList }: PokeGridProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [pokemonList, setPokemonList] = useState<PokemonData[]>([]);
   const [selectedPokemon, setSelectedPokemon] =
     useState<Pokemon>(DEFAULT_POKEMON);
-
-  useEffect(() => {
-    const getPokemonsData = async () => {
-      const pokemonRes = await getPokemons();
-      setPokemonList(pokemonRes);
-    };
-
-    getPokemonsData();
-  }, []);
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
@@ -42,17 +34,25 @@ const PokeGrid = () => {
 
   return (
     <>
-      <div className="grid grid-cols-5 gap-2 px-2">
-        {pokemonList.map((pokemon) => {
-          return (
-            <PokeCard
-              key={pokemon.pokemonId}
-              pokemon={pokemon}
-              handleModalChange={handleModalChange}
-            />
-          );
-        })}
-      </div>
+      {pokemonList.length > 0 ? (
+        <div className="grid grid-cols-5 gap-2 px-2">
+          {pokemonList.map((pokemon) => {
+            return (
+              <PokeCard
+                key={pokemon.pokemonId}
+                pokemon={pokemon}
+                handleModalChange={handleModalChange}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className="h-full w-full flex flex-col items-center justify-center">
+          <img src={noResults} alt="No Results" className="w-[500px]" />
+          <p className="text-4xl font-display">No Pokemons found!</p>
+          <p className="text-2xl">Try modifying the search/filters</p>
+        </div>
+      )}
       <PokeDetailsModal
         isOpen={isOpen}
         onOpenChange={handleOpenChange}
