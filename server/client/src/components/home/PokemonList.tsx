@@ -5,11 +5,11 @@ import {
   TYPES,
 } from "@/constants/pokeConstants";
 import { Badge } from "../ui/badge";
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import PokeGrid from "./PokeGrid";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { MdSearch } from "react-icons/md";
+import { getPokemons } from "@/utils/apiUtils";
+import { PokemonData } from "@/interfaces/api";
 const PokemonList = () => {
   const [regions, setRegions] = useState(
     REGIONS.map((region) => ({ name: region, selected: false }))
@@ -17,6 +17,43 @@ const PokemonList = () => {
   const [types, setTypes] = useState(
     TYPES.map((type) => ({ name: type, selected: false }))
   );
+  const [search, setSearch] = useState("");
+
+  const [pokemonList, setPokemonList] = useState<PokemonData[]>([]);
+
+  useEffect(() => {
+    const getPokemonsData = async () => {
+      const pokemonRes = await getPokemons();
+      setPokemonList(pokemonRes);
+    };
+
+    getPokemonsData();
+  }, []);
+
+  useEffect(() => {
+    const selectedRegions = regions
+      .filter((region) => region.selected)
+      .map((region) => region.name)
+      .join(",");
+
+    const selectedTypes = types
+      .filter((type) => type.selected)
+      .map((type) => type.name)
+      .join(",");
+
+    const filters = `?${
+      selectedRegions !== "" ? `regions=${selectedRegions}` : ""
+    }${selectedTypes !== "" ? `&types=${selectedTypes}` : ""}${
+      search !== "" ? `&search=${search}` : ""
+    }`;
+
+    const getPokemonsData = async () => {
+      const pokemonRes = await getPokemons(filters);
+      setPokemonList(pokemonRes);
+    };
+
+    getPokemonsData();
+  }, [regions, types, search]);
 
   const onRegionClick: MouseEventHandler<HTMLDivElement> = (e) => {
     const selectedValue = e.currentTarget.textContent;
@@ -48,11 +85,13 @@ const PokemonList = () => {
     <>
       <div className="flex gap-10">
         <div className="w-[17%] flex flex-col gap-6">
-          <div className="flex gap-2">
-            <Input type="text" placeholder="Search..." />
-            <Button className="text-lg p-2">
-              <MdSearch />
-            </Button>
+          <div>
+            <h1 className="text-2xl font-bold mb-2 font-display">Search</h1>
+            <Input
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
           <div>
             <h1 className="text-2xl font-bold mb-2 font-display">Region</h1>
@@ -102,7 +141,7 @@ const PokemonList = () => {
           </div>
         </div>
         <div className="w-[83%] h-[87vh] overflow-auto">
-          <PokeGrid />
+          <PokeGrid pokemonList={pokemonList} />
         </div>
       </div>
     </>

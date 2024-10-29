@@ -1,5 +1,9 @@
 import { PokemonData, Pokemon } from "./api";
 
+export interface PokeGridProps {
+  pokemonList: PokemonData[];
+}
+
 export interface PokeCardProps {
   pokemon: PokemonData;
   handleModalChange: (pokemon: PokemonData) => void;

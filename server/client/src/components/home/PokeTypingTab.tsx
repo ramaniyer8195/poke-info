@@ -39,31 +39,31 @@ const PokeTypingTab = ({ pokemon }: TabProps) => {
       <div className="w-full h-[1px] bg-primary"></div>
       <div className="grid grid-cols-2 gap-3">
         <div className="flex gap-3 items-center">
-          <span className="font-bold font-display min-w-32">Health</span>
+          <span className="font-bold font-display min-w-24">Health</span>
           <span>:</span>
           <span>{pokemon.stats.hp}</span>
           <Progress className="h-3" value={stats.hp} />
         </div>
         <div className="flex gap-3 items-center">
-          <span className="font-bold font-display min-w-32">Speed</span>
+          <span className="font-bold font-display min-w-24">Speed</span>
           <span>:</span>
           <span>{pokemon.stats.speed}</span>
           <Progress className="h-3" value={stats.speed} />
         </div>
         <div className="flex gap-3 items-center">
-          <span className="font-bold font-display min-w-32">Attack</span>
+          <span className="font-bold font-display min-w-24">Attack</span>
           <span>:</span>
           <span>{pokemon.stats.attack}</span>
           <Progress className="h-3" value={stats.attack} />
         </div>
         <div className="flex gap-3 items-center">
-          <span className="font-bold font-display min-w-32">Defense</span>
+          <span className="font-bold font-display min-w-24">Defense</span>
           <span>:</span>
           <span>{pokemon.stats.defense}</span>
           <Progress className="h-3" value={stats.defense} />
         </div>
         <div className="flex gap-3 items-center">
-          <span className="font-bold font-display min-w-32">
+          <span className="font-bold font-display min-w-24">
             Special Attack
           </span>
           <span>:</span>
@@ -71,7 +71,7 @@ const PokeTypingTab = ({ pokemon }: TabProps) => {
           <Progress className="h-3" value={stats.specialAttack} />
         </div>
         <div className="flex gap-3 items-center">
-          <span className="font-bold font-display min-w-32">
+          <span className="font-bold font-display min-w-24">
             Special Defense
           </span>
           <span>:</span>
@@ -97,11 +97,11 @@ const PokeTypingTab = ({ pokemon }: TabProps) => {
         </div>
         <div className="flex flex-col gap-2">
           <div className="font-bold font-display text-lg">Defense</div>
-          {Object.keys(typeChart.attack).map((effect) => (
+          {Object.keys(typeChart.defense).map((effect) => (
             <div className="flex gap-5 border-b-[1px] pb-1 border-primary items-center">
-              <div className="min-w-16">{effect}</div>
+              <div className="min-w-6">{effect}</div>
               <div className="flex gap-2">
-                {typeChart.attack[effect].map((type) => (
+                {typeChart.defense[effect].map((type) => (
                   <img className="h-5" src={TYPE_IMAGES[type].image} />
                 ))}
               </div>

@@ -71,7 +71,7 @@ const PokeDetailsModal = ({
       defaultOpen={isOpen}
       onOpenChange={onModalClose}
     >
-      <DialogContent className="w-[65vw] h-[85vh]">
+      <DialogContent className="w-[70vw] h-[85vh]">
         <DialogHeader>
           <DialogTitle className="flex gap-3 items-center justify-center">
             <span className="uppercase text-center text-2xl flex gap-2 font-display">

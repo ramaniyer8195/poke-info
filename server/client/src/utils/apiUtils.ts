@@ -1,9 +1,9 @@
 import { PokemonData, Pokemon } from "@/interfaces/api";
 import axios from "axios";
 
-export const getPokemons = async () => {
+export const getPokemons = async (filters = "") => {
   const response = await axios.get<{ data: PokemonData[] }>(
-    `/api/pokemon/getPokemons`
+    `/api/pokemon/getPokemons${filters}`
   );
 
   return response.data.data;
